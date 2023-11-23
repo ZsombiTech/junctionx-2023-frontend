@@ -11,6 +11,7 @@ import { store } from "./redux/store";
 import Home from "./routes/Home";
 import Register from "./routes/Register";
 import ForgotPassword from "./routes/ForgotPassword";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -46,3 +47,5 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+serviceWorkerRegistration.register();
