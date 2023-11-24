@@ -14,12 +14,52 @@ import ForgotPassword from "./routes/ForgotPassword";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import AuthWrapper from "./components/AuthWrapper";
 import RegisterGoogle from "./routes/RegisterGoogle";
+import Appointments from "./routes/Appointments";
+import Notifications from "./routes/Notifications";
+import Settings from "./routes/Settings";
+import Patients from "./routes/Patients";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 const router = createBrowserRouter([
+  {
+    path: "/patients",
+    element: (
+      <AuthWrapper>
+        <Patients />
+      </AuthWrapper>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/settings",
+    element: (
+      <AuthWrapper>
+        <Settings />
+      </AuthWrapper>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/notifications",
+    element: (
+      <AuthWrapper>
+        <Notifications />
+      </AuthWrapper>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/appointments",
+    element: (
+      <AuthWrapper>
+        <Appointments />
+      </AuthWrapper>
+    ),
+    errorElement: <Error />,
+  },
   {
     path: "/registergoogle",
     element: <RegisterGoogle />,

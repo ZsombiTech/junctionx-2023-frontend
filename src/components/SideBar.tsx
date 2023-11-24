@@ -62,7 +62,7 @@ export default function SideBar() {
         UPCOMING
       </h3>
 
-      <div className="h-px bg-darkerGray w-full mt-[5px]"></div>
+      <div className="h-px bg-darkerGray w-full mt-[12px]"></div>
 
       <div className="h-full p-3 overflow-y-auto noscrollbar">
         {data.map((patient, index) => {

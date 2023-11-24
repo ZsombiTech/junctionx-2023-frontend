@@ -2,1092 +2,2231 @@ import React, { useState } from "react";
 import ArrowLeft from "../assets/arrowLeft.svg";
 import ArrowRight from "../assets/arrowRight.svg";
 
-const calendars = [
-  {
-    days: [
-      {
-        name: "MON",
-        number: 20,
-      },
-      {
-        name: "TUE",
-        number: 21,
-      },
-      {
-        name: "WED",
-        number: 22,
-      },
-      {
-        name: "THU",
-        number: 23,
-      },
-      {
-        name: "FRI",
-        number: 24,
-      },
-      {
-        name: "SAT",
-        number: 25,
-      },
-      {
-        name: "SUN",
-        number: 26,
-      },
-    ],
-    events: [
-      "1 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: ["qdqd"],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "2 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "3 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "4 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "5 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "6 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "7 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: ["qdq222d"],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: ["efcc"],
-      },
-      {
-        events: [],
-      },
-      "8 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "9 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "10 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "11 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "12 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "13 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "14 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "15 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "16 PM",
-      {
-        events: ["qdqd"],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "17 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "18 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "19 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "20 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "21 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "22 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "23 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-    ],
-  },
-  {
-    days: [
-      {
-        name: "MON",
-        number: 27,
-      },
-      {
-        name: "TUE",
-        number: 28,
-      },
-      {
-        name: "WED",
-        number: 29,
-      },
-      {
-        name: "THU",
-        number: 30,
-      },
-      {
-        name: "FRI",
-        number: 31,
-      },
-      {
-        name: "SAT",
-        number: 1,
-      },
-      {
-        name: "SUN",
-        number: 2,
-      },
-    ],
-    events: [
-      "1 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "2 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "3 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "4 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "5 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "6 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "7 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "8 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "9 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "10 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "11 AM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "12 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "13 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "14 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "15 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "16 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "17 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "18 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "19 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "20 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "21 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "22 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      "23 PM",
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-      {
-        events: [],
-      },
-    ],
-  },
-];
+const calendars = {
+  first: [
+    {
+      days: [
+        {
+          name: "MON",
+          number: 20,
+        },
+        {
+          name: "TUE",
+          number: 21,
+        },
+        {
+          name: "WED",
+          number: 22,
+        },
+        {
+          name: "THU",
+          number: 23,
+        },
+        {
+          name: "FRI",
+          number: 24,
+        },
+        {
+          name: "SAT",
+          number: 25,
+        },
+        {
+          name: "SUN",
+          number: 26,
+        },
+      ],
+      events: [
+        "1 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [
+            {
+              name: "qdq222d",
+              startingMinute: 20,
+              endingMinute: 40,
+              fillOutColor: "#028090",
+            },
+          ],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "2 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "3 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "4 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "5 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "6 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "7 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [
+            {
+              name: "q222d",
+              startingMinute: 40,
+              endingMinute: 60,
+              fillOutColor: "#ff3f3f",
+            },
+          ],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [
+            {
+              name: "q22d",
+              startingMinute: 0,
+              endingMinute: 20,
+              fillOutColor: "#ff3f3f",
+            },
+            {
+              name: "q22d",
+              startingMinute: 30,
+              endingMinute: 40,
+              fillOutColor: "#028090",
+            },
+          ],
+        },
+        {
+          events: [],
+        },
+        "8 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "9 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "10 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "11 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "12 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "13 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "14 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "15 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "16 PM",
+        {
+          events: [
+            {
+              name: "qdq222d",
+              startingMinute: 20,
+              endingMinute: 40,
+              fillOutColor: "#028090",
+            },
+          ],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "17 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "18 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "19 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "20 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "21 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "22 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "23 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+      ],
+    },
+    {
+      days: [
+        {
+          name: "MON",
+          number: 27,
+        },
+        {
+          name: "TUE",
+          number: 28,
+        },
+        {
+          name: "WED",
+          number: 29,
+        },
+        {
+          name: "THU",
+          number: 30,
+        },
+        {
+          name: "FRI",
+          number: 31,
+        },
+        {
+          name: "SAT",
+          number: 1,
+        },
+        {
+          name: "SUN",
+          number: 2,
+        },
+      ],
+      events: [
+        "1 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "2 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "3 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "4 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "5 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "6 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "7 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "8 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "9 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "10 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "11 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "12 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "13 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "14 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "15 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "16 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "17 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "18 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "19 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "20 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "21 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "22 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "23 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+      ],
+    },
+  ],
+  second: [
+    {
+      days: [
+        {
+          name: "MON",
+          number: 20,
+        },
+        {
+          name: "TUE",
+          number: 21,
+        },
+        {
+          name: "WED",
+          number: 22,
+        },
+        {
+          name: "THU",
+          number: 23,
+        },
+        {
+          name: "FRI",
+          number: 24,
+        },
+        {
+          name: "SAT",
+          number: 25,
+        },
+        {
+          name: "SUN",
+          number: 26,
+        },
+      ],
+      events: [
+        "1 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "2 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "3 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "4 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "5 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "6 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "7 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [
+            {
+              name: "q222d",
+              startingMinute: 40,
+              endingMinute: 60,
+              fillOutColor: "#ff3f3f",
+            },
+          ],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [
+            {
+              name: "q22d",
+              startingMinute: 0,
+              endingMinute: 20,
+              fillOutColor: "#ff3f3f",
+            },
+          ],
+        },
+        {
+          events: [],
+        },
+        "8 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "9 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "10 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "11 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "12 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "13 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "14 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "15 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "16 PM",
+        {
+          events: [
+            {
+              name: "qdq222d",
+              startingMinute: 20,
+              endingMinute: 40,
+              fillOutColor: "#028090",
+            },
+          ],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "17 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "18 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "19 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "20 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "21 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "22 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "23 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+      ],
+    },
+    {
+      days: [
+        {
+          name: "MON",
+          number: 27,
+        },
+        {
+          name: "TUE",
+          number: 28,
+        },
+        {
+          name: "WED",
+          number: 29,
+        },
+        {
+          name: "THU",
+          number: 30,
+        },
+        {
+          name: "FRI",
+          number: 31,
+        },
+        {
+          name: "SAT",
+          number: 1,
+        },
+        {
+          name: "SUN",
+          number: 2,
+        },
+      ],
+      events: [
+        "1 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "2 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "3 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "4 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "5 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "6 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "7 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "8 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "9 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "10 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "11 AM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "12 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "13 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "14 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "15 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "16 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "17 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "18 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "19 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "20 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "21 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "22 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        "23 PM",
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+        {
+          events: [],
+        },
+      ],
+    },
+  ],
+};
 
 export default function Calendar() {
   const [currentWeek, setCurrentWeek] = useState(0);
-  const [selectedDevice, setSelectedDevice] = useState("LINAC #2 - VitalBeam");
+  const [selectedDevice, setSelectedDevice] = useState("first");
 
   return (
     <div className="absolute left-0 bottom-0 w-full">
@@ -1105,7 +2244,8 @@ export default function Calendar() {
             className="flex p-2 items-center justify-center bg-lighterGray border-l-[1px] border-darkerGray rounded-r-xl shadow-[1px_1px_3px_3px_rgba(103,116,152,0.3)] cursor-pointer"
             onClick={() => {
               setCurrentWeek(
-                currentWeek === calendars.length - 1
+                /* @ts-ignore */
+                currentWeek === calendars[selectedDevice].length - 1
                   ? currentWeek
                   : currentWeek + 1
               );
@@ -1122,7 +2262,8 @@ export default function Calendar() {
               setSelectedDevice(e.target.value);
             }}
           >
-            <option value="LINAC #2 - VitalBeam">LINAC #2 - VitalBeam</option>
+            <option value={"first"}>LINAC #2 - VitalBeam</option>
+            <option value={"second"}>LINAC #1 - TrueBeam</option>
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center px-1 pointer-events-none">
             <svg
@@ -1140,7 +2281,8 @@ export default function Calendar() {
       </div>
       <div className="w-full lg:w-4/5 grid grid-cols-15 bg-lightBlue h-[55vh] lg:h-[60vh] 2xl:h-[70vh] overflow-y-auto py-3 noscrollbar">
         <div className="flex justify-center items-center col-span-1 mb-3"></div>
-        {calendars[currentWeek].days.map((item, index) => (
+        {/* @ts-ignore */}
+        {calendars[selectedDevice][currentWeek].days.map((item, index) => (
           <div
             className="flex justify-center items-center col-span-2 mb-3"
             key={index}
@@ -1151,8 +2293,8 @@ export default function Calendar() {
             </div>
           </div>
         ))}
-
-        {calendars[currentWeek].events.map((item, index) => {
+        {/* @ts-ignore */}
+        {calendars[selectedDevice][currentWeek].events.map((item, index) => {
           let borderClass = "";
           if (
             typeof item === "string" &&
@@ -1184,16 +2326,31 @@ export default function Calendar() {
 
           return (
             <div
-              className={`flex justify-start items-center h-7 lg:h-5 2xl:h-10 col-span-2 ${borderClass}`}
+              className={`flex relative justify-start items-center h-8 lg:h-5 2xl:h-10 col-span-2 ${borderClass}`}
               key={index}
             >
               {(
                 item as {
-                  events: string[];
+                  events: {
+                    name: string;
+                    startingMinute: number;
+                    endingMinute: number;
+                    fillOutColor: string;
+                  }[];
                 }
               ).events.map((event, index) => (
-                <div className="w-1/2 h-full bg-primary" key={index}>
-                  <p className="text-xs text-center text-white">{event}</p>
+                <div
+                  className={`absolute h-full`}
+                  style={{
+                    width: `${
+                      ((event.endingMinute - event.startingMinute) / 60) * 100
+                    }%`,
+                    left: `${(event.startingMinute / 60) * 100}%`,
+                    backgroundColor: event.fillOutColor ?? "#028090",
+                  }}
+                  key={index}
+                >
+                  <p className="text-white text-xs">{event.name}</p>
                 </div>
               ))}
             </div>
