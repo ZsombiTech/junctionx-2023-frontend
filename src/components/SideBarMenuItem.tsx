@@ -1,6 +1,7 @@
 import React from "react";
 
 interface Props {
+  title: string;
   name: string;
   age: number;
   type: string;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function SideBarMenuItem({
+  title,
   name,
   age,
   type,
@@ -16,8 +18,9 @@ export default function SideBarMenuItem({
   disablities,
 }: Props) {
   return (
-    <div className="flex justify-between bg-lightGray border-[1px] border-primary rounded-lg pl-3 h-[10rem] mb-4">
-      <div className="flex flex-col gap-2 my-2">
+    <div className="flex justify-between bg-lightGray rounded-lg pl-3 h-[10rem] mb-4 shadow-[1px_1px_4px_4px_rgba(2,128,144,0.2)]">
+      <div className="flex flex-col gap-1 my-2">
+        <h1 className="font-bold text-lg text-primary">{title}</h1>
         <h2 className="font-bold text-lg">{name}</h2>
 
         <div className="flex flex-col">

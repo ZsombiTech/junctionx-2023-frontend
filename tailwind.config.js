@@ -1,6 +1,13 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1636px",
+    },
     extend: {
       colors: {
         transparent: "transparent",
@@ -13,6 +20,13 @@ module.exports = {
         statusUrgent: "#ff3f3f",
         statusGood: "#8dde09",
         statusMedium: "#d4900c",
+        darkerGray: "#677498",
+        lighterGray: "#c2c8e8",
+        purple: "#544F97",
+        grayOne: "#031927",
+      },
+      gridTemplateColumns: {
+        15: "repeat(15, minmax(0, 1fr))",
       },
     },
   },

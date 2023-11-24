@@ -1,9 +1,30 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import VarianLogo from "../assets/varianLogo.jpg";
+import { forgotPasswordApi } from "../api";
+import { toast } from "react-toastify";
+import { StatusCodes } from "http-status-codes";
 
 export default function ForgotPassword() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
+
+  const handleForgotPassword = async () => {
+    if (email === "") {
+      toast.error("Please fill out all fields", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+      return;
+    }
+
+    const forgotPassword = await forgotPasswordApi({
+      email,
+    });
+
+    if (forgotPassword.status === StatusCodes.OK) {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="bg-[url('assets/healthcareBackground.webp')] h-[100vh] w-full bg-contain bg-cover flex justify-center items-center">
@@ -18,7 +39,7 @@ export default function ForgotPassword() {
         />
         <button
           className="h-10 px-2 mt-6 p-2 rounded-md bg-blue-500 font-bold text-white focus:outline-none placeholder-white hover:bg-blue-300"
-          onClick={() => {}}
+          onClick={handleForgotPassword}
         >
           Reset your password
         </button>

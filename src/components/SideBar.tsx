@@ -7,6 +7,7 @@ export default function SideBar() {
 
   const data = [
     {
+      title: "Transport",
       name: "Matyas Nyilas",
       age: 17,
       type: "lung cancer",
@@ -14,6 +15,7 @@ export default function SideBar() {
       disablities: "none",
     },
     {
+      title: "Transport",
       name: "Matyas2 Nyilas",
       age: 17,
       type: "lung cancer",
@@ -21,6 +23,7 @@ export default function SideBar() {
       disablities: "none",
     },
     {
+      title: "Transport",
       name: "Matyas2 Nyilas",
       age: 17,
       type: "lung cancer",
@@ -28,6 +31,7 @@ export default function SideBar() {
       disablities: "none",
     },
     {
+      title: "Transport",
       name: "Matyas2 Nyilas",
       age: 17,
       type: "lung cancer",
@@ -35,6 +39,7 @@ export default function SideBar() {
       disablities: "none",
     },
     {
+      title: "Transport",
       name: "Matyas2 Nyilas",
       age: 17,
       type: "lung cancer",
@@ -42,6 +47,7 @@ export default function SideBar() {
       disablities: "none",
     },
     {
+      title: "Transport",
       name: "Matyas2 Nyilas",
       age: 17,
       type: "lung cancer",
@@ -51,29 +57,31 @@ export default function SideBar() {
   ];
 
   return !isMobile ? (
-    <div className="fixed top-0 right-0 h-screen w-[20rem] flex flex-col bg-lightBlue">
-      <h3 className="text-2xl text-black font-medium text-center mt-24">
-        Unarranged patients
+    <div className="fixed top-0 right-0 h-screen w-[20vw] flex flex-col bg-lightBlue border-l-[1px] border-primary">
+      <h3 className="text-2xl text-darkerGray font-medium text-center mt-5">
+        UPCOMING
       </h3>
 
-      <div className="h-px bg-black w-full mt-2"></div>
+      <div className="h-px bg-darkerGray w-full mt-[12px]"></div>
 
-      <div className="h-full p-3 overflow-y-auto">
-        {data.map((patient) => {
+      <div className="h-full p-3 overflow-y-auto noscrollbar">
+        {data.map((patient, index) => {
           return (
             <SideBarMenuItem
+              title={patient.title}
               name={patient.name}
               age={patient.age}
               type={patient.type}
               weight={patient.weight}
               disablities={patient.disablities}
+              key={index}
             />
           );
         })}
       </div>
     </div>
   ) : isOpened ? (
-    <div className="w-full h-screen bg-lightBlue flex flex-col justify-start z-30 p-3">
+    <div className="fixed w-[100vw] h-[100vh] bg-lightBlue flex flex-col justify-start z-30 p-3">
       <div className="flex items-start justify-end w-full">
         <button
           className="bg-black text-white py-1 px-3 rounded-md"
@@ -83,21 +91,23 @@ export default function SideBar() {
         </button>
       </div>
 
-      <h3 className="text-2xl text-black font-medium text-center mt-12">
-        Unarranged patients
+      <h3 className="text-2xl text-darkerGray font-medium text-center mt-5">
+        UPCOMING
       </h3>
 
-      <div className="h-px bg-black w-full mt-2"></div>
+      <div className="h-px bg-black w-full mt-1"></div>
 
       <div className="h-full p-3 overflow-y-auto">
-        {data.map((patient) => {
+        {data.map((patient, index) => {
           return (
             <SideBarMenuItem
+              title={patient.title}
               name={patient.name}
               age={patient.age}
               type={patient.type}
               weight={patient.weight}
               disablities={patient.disablities}
+              key={index}
             />
           );
         })}
@@ -105,7 +115,7 @@ export default function SideBar() {
     </div>
   ) : (
     <button
-      className="fixed top-0 right-0 bg-black text-white py-1 px-3 rounded-md m-3"
+      className="fixed top-3/5 right-0 bg-black text-white py-1 px-3 rounded-md m-3 mr-1"
       onClick={() => setIsOpened(true)}
     >
       Open
