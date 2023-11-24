@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ArrowLeft from "../assets/arrowLeft.svg";
 import ArrowRight from "../assets/arrowRight.svg";
+import CalendarDay from "./CalendarDay";
 
 const calendars = {
   first: [
@@ -2295,66 +2296,7 @@ export default function Calendar() {
         ))}
         {/* @ts-ignore */}
         {calendars[selectedDevice][currentWeek].events.map((item, index) => {
-          let borderClass = "";
-          if (
-            typeof item === "string" &&
-            (item.includes("AM") || item.includes("PM"))
-          ) {
-            return (
-              <p
-                className="flex justify-center items-center text-xs translate-y-[40%]"
-                key={index}
-              >
-                {item as string}
-              </p>
-            );
-          }
-
-          if (index < 8 && (index - 1) % 8 === 0) {
-            borderClass += "border-b-[1px] border-r-[1px] border-black";
-          } else if (index === 7) {
-            borderClass += "border-b-[1px] border-l-[1px] border-black";
-          } else if (index < 8) {
-            borderClass +=
-              "border-b-[1px] border-r-[1px] border-l-[1px] border-black";
-          } else if ((index - 1) % 8 === 0) {
-            borderClass +=
-              "border-b-[1px] border-t-[1px] border-r-[1px] border-black";
-          } else {
-            borderClass += "border-[1px] border-black";
-          }
-
-          return (
-            <div
-              className={`flex relative justify-start items-center h-8 lg:h-5 2xl:h-10 col-span-2 ${borderClass}`}
-              key={index}
-            >
-              {(
-                item as {
-                  events: {
-                    name: string;
-                    startingMinute: number;
-                    endingMinute: number;
-                    fillOutColor: string;
-                  }[];
-                }
-              ).events.map((event, index) => (
-                <div
-                  className={`absolute h-full`}
-                  style={{
-                    width: `${
-                      ((event.endingMinute - event.startingMinute) / 60) * 100
-                    }%`,
-                    left: `${(event.startingMinute / 60) * 100}%`,
-                    backgroundColor: event.fillOutColor ?? "#028090",
-                  }}
-                  key={index}
-                >
-                  <p className="text-white text-xs">{event.name}</p>
-                </div>
-              ))}
-            </div>
-          );
+          return <CalendarDay item={item} index={index} key={index} />;
         })}
       </div>
     </div>

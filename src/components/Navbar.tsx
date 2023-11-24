@@ -17,7 +17,12 @@ export default function Navbar() {
   return (
     <div className="bg-lightBlue w-full lg:w-4/5 py-3 flex items-center justify-between px-5 border-b-[1px] border-darkerGray">
       <div className="flex flex-col lg:flex-row items-center gap-1 lg:gap-4">
-        <img src={VarianLogo} alt="Varian Logo" className="w-28" />
+        <img
+          src={VarianLogo}
+          alt="Varian Logo"
+          className="w-28 cursor-pointer"
+          onClick={() => navigate("/")}
+        />
         <Link
           to="/"
           className={`ml-0 lg:ml-6 text-sm lg:text-lg font-medium cursor-pointer ${
