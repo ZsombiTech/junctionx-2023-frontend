@@ -72,9 +72,9 @@ export default function Home() {
         ) : (
           bannerDatas.map((item, index) => (
             <BannerContainer
+              next_treatment={item.next_treatment}
               type={item.type}
               status={item.status}
-              next_treatment={item.next_treatment}
               index={index}
               key={index}
             />

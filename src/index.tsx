@@ -17,12 +17,32 @@ import Appointments from "./routes/Appointments";
 import Notifications from "./routes/Notifications";
 import Settings from "./routes/Settings";
 import Patients from "./routes/Patients";
+import Logs from "./routes/Logs";
+import Statistics from "./routes/Statistics";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 const router = createBrowserRouter([
+  {
+    path: "/statistics",
+    element: (
+      <AuthWrapper>
+        <Statistics />
+      </AuthWrapper>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/logs",
+    element: (
+      <AuthWrapper>
+        <Logs />
+      </AuthWrapper>
+    ),
+    errorElement: <Error />,
+  },
   {
     path: "/patients",
     element: (

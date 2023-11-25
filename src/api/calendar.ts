@@ -26,3 +26,12 @@ export const getUpcomingApi = async () => {
     return error;
   }
 };
+
+export const getLogsApi = async () => {
+  try {
+    const response = await axios.get(`/v1/logs`);
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

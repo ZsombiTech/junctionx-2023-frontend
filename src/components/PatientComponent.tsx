@@ -2,7 +2,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import AppointmentNotification from "./AppointmentNotification";
 import CancelIcon from "../assets/cancelIcon.svg";
-import Loading from "./Loading";
 
 interface Props {
   firstName: string;
@@ -10,7 +9,7 @@ interface Props {
   age: number;
   type: string;
   weight: number;
-  disabilities: string;
+  machine_options: string;
 }
 
 export default function PatientComponent({
@@ -19,16 +18,12 @@ export default function PatientComponent({
   age,
   type,
   weight,
-  disabilities,
+  machine_options,
 }: Props) {
-  const [loading, setLoading] = useState(false);
   const [openProfileDetailsModal, setOpenProfileDetailsModal] = useState(false);
-
-  const handleOpenProfileDetailsModal = () => {};
 
   return (
     <>
-      {loading && <Loading />}
       <Transition appear show={openProfileDetailsModal} as={Fragment}>
         <Dialog
           as="div"
@@ -60,14 +55,14 @@ export default function PatientComponent({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full h-[30rem] max-w-2xl transform overflow-hidden rounded-2xl bg-lightBlue p-6 text-left align-middle shadow-xl transition-all flex items-center gap-5">
+                <Dialog.Panel className="w-full h-[50rem] lg:h-[30rem] max-w-2xl transform overflow-hidden rounded-2xl bg-lightBlue p-2 lg:p-6 text-left align-middle shadow-xl transition-all flex flex-col lg:flex-row items-center gap-5">
                   <img
                     src={CancelIcon}
                     alt="cancel icon"
                     className="absolute top-2 right-2 cursor-pointer"
                     onClick={() => setOpenProfileDetailsModal(false)}
                   />
-                  <div className="w-1/2 h-full">
+                  <div className="w-full lg:w-1/2 h-full">
                     <h1 className="text-grayOne text-3xl font-bold">
                       {firstName} <span className="uppercase">{lastName}</span>
                     </h1>
@@ -80,20 +75,19 @@ export default function PatientComponent({
                     <p className="text-lg font-medium text-grayOne">
                       Weight: {weight}
                     </p>
-                    <p className="text-lg font-medium text-grayOne">
-                      Disabilities: {disabilities}
-                    </p>
 
                     <p className="text-lg font-medium text-grayOne mt-3">
                       Machines can be used:
                     </p>
                     <ul className="list-disc">
-                      <li className="text-lg font-medium text-grayOne ml-12 whitespace-nowrap">
-                        LINAC #2 - VitalBeam
-                      </li>
-                      <li className="text-lg font-medium text-grayOne ml-12 whitespace-nowrap">
-                        LINAC #3 - TrueBeam
-                      </li>
+                      {machine_options.split(",").map((item, index) => (
+                        <li
+                          className="text-lg font-medium text-grayOne ml-12 whitespace-nowrap"
+                          key={index}
+                        >
+                          {item}
+                        </li>
+                      ))}
                     </ul>
 
                     <p className="text-lg font-medium text-grayOne mt-3">
@@ -108,7 +102,7 @@ export default function PatientComponent({
                       </li>
                     </ul>
                   </div>
-                  <div className="w-1/2 h-full">
+                  <div className="w-full lg:w-1/2 h-full">
                     <h1 className="text-grayOne text-3xl font-bold text-center">
                       Appointments
                     </h1>
@@ -140,7 +134,7 @@ export default function PatientComponent({
         <p className="text-xl font-medium text-grayOne">Type: {type}</p>
         <p className="text-xl font-medium text-grayOne">Weight: {weight}</p>
         <p className="text-xl font-medium text-grayOne">
-          Disabilities: {disabilities}
+          Machine options: {machine_options}
         </p>
       </div>
     </>
