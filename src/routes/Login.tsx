@@ -19,6 +19,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
+    alert("FASZ VAN");
     if (email === "" || password === "") {
       toast.error("Please fill out all fields", {
         position: toast.POSITION.BOTTOM_LEFT,
