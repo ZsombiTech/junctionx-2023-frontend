@@ -42,6 +42,8 @@ export default function CalendarDay({ item, index }: Props) {
             startingMinute: number;
             endingMinute: number;
             fillOutColor: string;
+            start_hour: number;
+            appointment_id: number;
           }[];
         }
       ).events.map((event, index) => (

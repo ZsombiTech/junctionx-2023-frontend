@@ -8,3 +8,12 @@ export const getMeApi = async () => {
     return error;
   }
 };
+
+export const getAllAccountsApi = async () => {
+  try {
+    const response = await axios.get("/v1/accounts");
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

@@ -41,14 +41,14 @@ export default function Navbar() {
           Patients
         </Link>
 
-        <Link
+        {/*<Link
           to="/nurses"
           className={`text-sm lg:text-lg font-medium cursor-pointer ${
             location.pathname === "/nurses" ? "text-primary" : "text-grayOne"
           }`}
         >
           Nurses
-        </Link>
+        </Link>*/}
 
         <Link
           to="/logs"

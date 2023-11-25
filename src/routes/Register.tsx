@@ -16,7 +16,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = async (type: number) => {
+  const handleRegister = async () => {
     if (
       email === "" ||
       password === "" ||
@@ -34,8 +34,8 @@ export default function Register() {
     const registerRequest = await registerApi({
       email,
       password,
-      firstName,
-      lastName,
+      first_name: firstName,
+      last_name: lastName,
     });
 
     setLoading(false);
@@ -93,18 +93,12 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="flex items-center gap-2 w-full lg:w-1/3">
+          <div className="flex items-center gap-2 w-full lg:w-2/3">
             <button
-              className="w-1/2 h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
-              onClick={() => handleRegister(0)}
+              className="w-full h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
+              onClick={() => handleRegister}
             >
-              Nurse
-            </button>
-            <button
-              className="w-1/2 h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
-              onClick={() => handleRegister(1)}
-            >
-              Patient
+              Register
             </button>
           </div>
 
