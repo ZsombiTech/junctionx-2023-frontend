@@ -38,20 +38,20 @@ const hoursInADay = [
   "8 AM",
   "9 AM",
   "10 AM",
-  "11AM",
+  "11 AM",
   "12 AM",
-  "1 PM",
-  "2 PM",
-  "3 PM",
-  "4 PM",
-  "5 PM",
-  "6 PM",
-  "7 PM",
-  "8PM",
-  "9 PM",
-  "10 PM",
-  "11 PM",
-  "12 PM",
+  "13 PM",
+  "14 PM",
+  "15 PM",
+  "16 PM",
+  "17 PM",
+  "18 PM",
+  "19 PM",
+  "20 PM",
+  "21 PM",
+  "22 PM",
+  "23 PM",
+  "24 PM",
 ];
 
 export const calendarDataConverter = (rawData: any) => {
@@ -161,7 +161,6 @@ export const calendarDataConverter = (rawData: any) => {
     const month = day.month_number;
     const dayNumber = day.day_number;
     const machines = day.machines;
-    const weekday = day.weekday;
 
     machines.forEach((machine: any) => {
       const machineName = machine.resource.type;
@@ -217,18 +216,50 @@ export const calendarDataConverter = (rawData: any) => {
             appointment_id: event.appointment_id,
           };
 
-          if (
-            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
-              event.start_hour * 8 + weekday - 1
-            ].events
+          let eventStartHourIndex = -1;
+          for (
+            let v = 0;
+            v <
+            result[`${machineName}#${machineId}`][arrayIndexByMonth].events
+              .length;
+            v++
           ) {
-            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
-              event.start_hour * 8 + weekday - 1
-            ].events.push(eventObj);
-            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
-              event.start_hour * 8 + weekday + 7
-            ].events.push(eventObj2);
+            if (
+              typeof result[`${machineName}#${machineId}`][arrayIndexByMonth]
+                .events[v] === "string" &&
+              (result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+                v
+              ] === `${event.start_hour} AM` ||
+                result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+                  v
+                ] === `${event.start_hour} PM`)
+            ) {
+              eventStartHourIndex = v;
+            }
           }
+
+          let eventStartDayIndex = -1;
+          for (
+            let v = 0;
+            v <
+            result[`${machineName}#${machineId}`][arrayIndexByMonth].days
+              .length;
+            v++
+          ) {
+            if (
+              result[`${machineName}#${machineId}`][arrayIndexByMonth].days[v]
+                .number === dayNumber
+            ) {
+              eventStartDayIndex = v;
+            }
+          }
+
+          result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+            eventStartHourIndex + eventStartDayIndex + 1
+          ].events.push(eventObj);
+          result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+            eventStartHourIndex + eventStartDayIndex + 9
+          ].events.push(eventObj2);
         } else {
           const eventObj = {
             name: event.display_name,
@@ -238,14 +269,48 @@ export const calendarDataConverter = (rawData: any) => {
             start_hour: event.start_hour,
             appointment_id: event.appointment_id,
           };
-          if (
-            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
-              event.start_hour * 8 + weekday - 1
-            ].events
-          )
-            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
-              event.start_hour * 8 + weekday - 1
-            ].events.push(eventObj);
+
+          let eventStartHourIndex = -1;
+          for (
+            let v = 0;
+            v <
+            result[`${machineName}#${machineId}`][arrayIndexByMonth].events
+              .length;
+            v++
+          ) {
+            if (
+              typeof result[`${machineName}#${machineId}`][arrayIndexByMonth]
+                .events[v] === "string" &&
+              (result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+                v
+              ] === `${event.start_hour} AM` ||
+                result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+                  v
+                ] === `${event.start_hour} PM`)
+            ) {
+              eventStartHourIndex = v;
+            }
+          }
+
+          let eventStartDayIndex = -1;
+          for (
+            let v = 0;
+            v <
+            result[`${machineName}#${machineId}`][arrayIndexByMonth].days
+              .length;
+            v++
+          ) {
+            if (
+              result[`${machineName}#${machineId}`][arrayIndexByMonth].days[v]
+                .number === dayNumber
+            ) {
+              eventStartDayIndex = v;
+            }
+          }
+
+          result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+            eventStartHourIndex + eventStartDayIndex + 1
+          ].events.push(eventObj);
         }
       });
     });

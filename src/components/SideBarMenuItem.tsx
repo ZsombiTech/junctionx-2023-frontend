@@ -1,39 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   title: string;
   name: string;
+  device_name: string;
   age: number;
   type: string;
   weight: number;
-  disablities: string;
+  end_time: string;
 }
 
 export default function SideBarMenuItem({
   title,
   name,
+  device_name,
   age,
   type,
   weight,
-  disablities,
+  end_time,
 }: Props) {
+  const [remainingTimeMinuteSecond, setRemainingTimeMinuteSecond] =
+    useState("00:00");
+  const remainingLabel =
+    parseInt(remainingTimeMinuteSecond.split(":")[0]) < 10
+      ? "Within 10 minutes"
+      : parseInt(remainingTimeMinuteSecond.split(":")[0]) < 30
+      ? "Within half an hour"
+      : "Within a day";
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const endTime = new Date(end_time);
+      const remainingTime = endTime.getTime() - now.getTime();
+
+      const remainingTimeMinute = Math.floor(remainingTime / 60000);
+      const remainingTimeSecond = Math.floor((remainingTime % 60000) / 1000);
+
+      setRemainingTimeMinuteSecond(
+        `${
+          remainingTimeMinute < 10
+            ? "0" + remainingTimeMinute
+            : remainingTimeMinute
+        }:${
+          remainingTimeSecond < 10
+            ? "0" + remainingTimeSecond
+            : remainingTimeSecond
+        }`
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [end_time]);
+
   return (
     <div className="flex justify-between bg-lightGray rounded-lg pl-3 h-[10rem] mb-4 shadow-[1px_1px_4px_4px_rgba(2,128,144,0.2)]">
       <div className="flex flex-col gap-1 my-2">
-        <h1 className="font-bold text-lg text-primary">{title}</h1>
+        <h1 className="font-bold text-lg text-primary">
+          {title} - {device_name}
+        </h1>
         <h2 className="font-bold text-lg">{name}</h2>
 
         <div className="flex flex-col">
           <p className="font-medium text-sm">Age: {age}</p>
           <p className="font-medium text-sm">Type: {type}</p>
           <p className="font-medium text-sm">Weight: {weight}</p>
-          <p className="font-medium text-sm">Disablities: {disablities}</p>
+          <p className="font-medium text-sm">
+            Remaining time: {remainingTimeMinuteSecond}
+          </p>
         </div>
       </div>
 
-      <div className="h-full bg-statusUrgent w-8 rounded-r-lg flex items-center justify-center">
+      <div
+        className={`h-full ${
+          remainingLabel === "Within 10 minutes"
+            ? "bg-statusUrgent"
+            : remainingLabel === "Within half an hour"
+            ? "bg-statusMedium"
+            : "bg-statusGood"
+        }
+        w-8 rounded-r-lg flex items-center justify-center`}
+      >
         <span className="text-white rotate-90 whitespace-nowrap">
-          Within 3 days
+          {remainingLabel}
         </span>
       </div>
     </div>
