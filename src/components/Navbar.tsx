@@ -2,16 +2,16 @@ import React from "react";
 import VarianLogo from "../assets/varianLogoSvg.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutApi } from "../api";
-import { StatusCodes } from "http-status-codes";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogout = async () => {
-    const logoutRequest = await logoutApi();
+    await logoutApi();
 
-    if (logoutRequest.status === StatusCodes.OK) navigate("/login");
+    navigate("/login");
+    window.location.reload();
   };
 
   return (
@@ -41,14 +41,16 @@ export default function Navbar() {
           Patients
         </Link>
 
-        {/*<Link
-          to="/nurses"
+        <Link
+          to="/statistics"
           className={`text-sm lg:text-lg font-medium cursor-pointer ${
-            location.pathname === "/nurses" ? "text-primary" : "text-grayOne"
+            location.pathname === "/statistics"
+              ? "text-primary"
+              : "text-grayOne"
           }`}
         >
-          Nurses
-        </Link>*/}
+          Statistics
+        </Link>
 
         <Link
           to="/logs"

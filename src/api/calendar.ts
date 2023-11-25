@@ -17,3 +17,21 @@ export const getAppointmentApi = async (appointment_id: number) => {
     return error;
   }
 };
+
+export const getUpcomingApi = async () => {
+  try {
+    const response = await axios.get(`/v1/upcoming`);
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};
+
+export const getLogsApi = async () => {
+  try {
+    const response = await axios.get(`/v1/logs`);
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

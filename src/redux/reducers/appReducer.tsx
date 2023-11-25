@@ -11,10 +11,14 @@ interface CurrentUser {
 
 interface AuthState {
   currentUser: CurrentUser | null;
+  selectedDevice: string;
+  selectedEventId: string;
 }
 
 const initialState: AuthState = {
   currentUser: null,
+  selectedDevice: "",
+  selectedEventId: "",
 };
 
 export const appSlice = createSlice({
@@ -24,8 +28,15 @@ export const appSlice = createSlice({
     setCurrentUser: (state, action: PayloadAction<CurrentUser>) => {
       state.currentUser = action.payload;
     },
+    setSelectedDevice: (state, action: PayloadAction<string>) => {
+      state.selectedDevice = action.payload;
+    },
+    setSelectedEventId: (state, action: PayloadAction<string>) => {
+      state.selectedEventId = action.payload;
+    },
   },
 });
 
-export const { setCurrentUser } = appSlice.actions;
+export const { setCurrentUser, setSelectedDevice, setSelectedEventId } =
+  appSlice.actions;
 export default appSlice.reducer;

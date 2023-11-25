@@ -7,18 +7,44 @@ import { getAllResourcesApi } from "../api";
 
 interface BannerData {
   name: string;
-  device: string;
+  type: string;
+  next_treatment: string;
   status: string;
 }
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [bannerDatas, setBannerDatas] = useState<BannerData[]>([
-    { name: "LINAC #2", device: "TrueBeam", status: "reserved (40 mins left)" },
-    { name: "LINAC #2", device: "TrueBeam", status: "reserved (40 mins left)" },
-    { name: "LINAC #2", device: "TrueBeam", status: "reserved (40 mins left)" },
-    { name: "LINAC #2", device: "TrueBeam", status: "reserved (40 mins left)" },
-    { name: "LINAC #2", device: "TrueBeam", status: "reserved (40 mins left)" },
+    {
+      name: "LINAC #2",
+      type: "TrueBeam#2",
+      next_treatment: "2023-11-25T17:33:00Z",
+      status: "reserved (40 mins left)",
+    },
+    {
+      name: "LINAC #2",
+      type: "TrueBeam#1",
+      next_treatment: "2023-11-25T17:33:00Z",
+      status: "reserved (40 mins left)",
+    },
+    {
+      name: "LINAC #2",
+      type: "VitalBeam#1",
+      next_treatment: "2023-11-25T17:33:00Z",
+      status: "reserved (40 mins left)",
+    },
+    {
+      name: "LINAC #2",
+      type: "VitalBeam#2",
+      next_treatment: "2023-11-25T17:33:00Z",
+      status: "reserved (40 mins left)",
+    },
+    {
+      name: "LINAC #2",
+      type: "Unique#1",
+      next_treatment: "2023-11-25T17:33:00Z",
+      status: "reserved (40 mins left)",
+    },
   ]);
 
   useEffect(() => {
@@ -46,9 +72,10 @@ export default function Home() {
         ) : (
           bannerDatas.map((item, index) => (
             <BannerContainer
-              name={item.name}
-              device={item.device}
+              next_treatment={item.next_treatment}
+              type={item.type}
               status={item.status}
+              index={index}
               key={index}
             />
           ))

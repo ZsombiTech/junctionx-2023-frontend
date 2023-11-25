@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
 import CancelIcon from "../assets/cancelIcon.svg";
 import { Dialog, Transition } from "@headlessui/react";
-import Loading from "./Loading";
 import { getAppointmentApi } from "../api";
 import { allDevices } from "../config/calendarDataConverter";
+import { useAppSelector } from "../redux/hooks";
 
 interface Props {
   event: {
@@ -14,9 +14,13 @@ interface Props {
     start_hour: number;
     appointment_id: number;
   };
+  selectedDeviceParent: string;
 }
 
-export default function CalendarEvent({ event }: Props) {
+export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
+  const selectedEventIdRedux = useAppSelector(
+    (state) => state.app.selectedEventId
+  );
   const [openCalendarEventModal, setOpenCalendarEventModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [clientName, setClientName] = useState("");
@@ -31,6 +35,7 @@ export default function CalendarEvent({ event }: Props) {
   const [selectedDevice, setSelectedDevice] = useState(allDevices[0].name);
 
   const handleOpenDetails = async () => {
+    setOpenCalendarEventModal(true);
     setLoading(true);
 
     const appointmentDetailsRequest = await getAppointmentApi(
@@ -38,7 +43,6 @@ export default function CalendarEvent({ event }: Props) {
     );
 
     if (appointmentDetailsRequest.status === 200) {
-      console.log(appointmentDetailsRequest.data);
       setClientName(
         appointmentDetailsRequest.data.demand.patient.first_name +
           " " +
@@ -47,21 +51,19 @@ export default function CalendarEvent({ event }: Props) {
       setClientEmail(appointmentDetailsRequest.data.demand.patient.email);
       setCancerType(appointmentDetailsRequest.data.demand.cancer_type.region);
       setAverageTreatmentDuration(
-        appointmentDetailsRequest.demand.cancer_type.avg_duration
+        appointmentDetailsRequest.data.demand.cancer_type.avg_duration
       );
-      setNumberOfFractions(appointmentDetailsRequest.demand.fractions);
-      setIsInPatient(appointmentDetailsRequest.demand.is_inpatient);
+      setNumberOfFractions(appointmentDetailsRequest.data.demand.fractions);
+      setIsInPatient(appointmentDetailsRequest.data.demand.is_inpatient);
     }
 
     setLoading(false);
-    setOpenCalendarEventModal(true);
   };
 
   const handleSave = async () => {};
 
   return (
     <>
-      {loading && <Loading />}
       <Transition appear show={openCalendarEventModal} as={Fragment}>
         <Dialog
           as="div"
@@ -104,7 +106,7 @@ export default function CalendarEvent({ event }: Props) {
                     <h2 className="text-center text-3xl text-black font-bold mb-4">
                       Reschedule appointment
                     </h2>
-                    <div className="flex items-center justify-around w-full mt-5">
+                    <div className="flex items-start justify-around w-full mt-5 gap-3">
                       <div className="border-2 border-black rounded-lg p-3 pt-1">
                         <h2 className="text-base text-center text-darkerGray mb-3">
                           Current appointment details
@@ -130,49 +132,59 @@ export default function CalendarEvent({ event }: Props) {
                         <h2 className="text-base text-center text-darkerGray mb-3">
                           Client information
                         </h2>
-                        <p className="text-black text-lg">
-                          <span className="font-bold">Full Name:</span>{" "}
-                          {clientName}
-                        </p>
-                        <p className="text-black text-lg">
-                          <span className="font-bold">Email:</span>{" "}
-                          {clientEmail}
-                        </p>
-                        <p className="text-black text-lg">
-                          <span className="font-bold">Cancer Type:</span>{" "}
-                          {cancerType}
-                        </p>
-                        <p className="text-black text-lg">
-                          <span className="font-bold">
-                            Average Treatment Duration:
-                          </span>{" "}
-                          {averageTreatmentDuration}
-                        </p>
-                        <p className="text-black text-lg">
-                          <span className="font-bold">Number of fractions</span>{" "}
-                          {numberOfFractions}
-                        </p>
-                        <p className="text-black text-lg">
-                          <span className="font-bold">Is inpatient</span>{" "}
-                          {isInPatient}
-                        </p>
+                        {loading ? (
+                          <p>Loading...</p>
+                        ) : (
+                          <>
+                            <p className="text-black text-lg">
+                              <span className="font-bold">Full Name:</span>{" "}
+                              {clientName ? clientName : "N/A"}
+                            </p>
+                            <p className="text-black text-lg">
+                              <span className="font-bold">Email:</span>{" "}
+                              {clientEmail ? clientEmail : "N/A"}
+                            </p>
+                            <p className="text-black text-lg">
+                              <span className="font-bold">Cancer Type:</span>{" "}
+                              {cancerType ? cancerType : "N/A"}
+                            </p>
+                            <p className="text-black text-lg">
+                              <span className="font-bold">
+                                Average Treatment Duration:
+                              </span>{" "}
+                              {averageTreatmentDuration
+                                ? averageTreatmentDuration
+                                : "N/A"}
+                            </p>
+                            <p className="text-black text-lg">
+                              <span className="font-bold">
+                                Number of fractions:
+                              </span>{" "}
+                              {numberOfFractions ? numberOfFractions : "N/A"}
+                            </p>
+                            <p className="text-black text-lg">
+                              <span className="font-bold">Is inpatient:</span>{" "}
+                              {isInPatient ? "true" : "false"}
+                            </p>
+                          </>
+                        )}
                       </div>
                     </div>
 
                     <div className="flex items-center justify-around w-full mt-5">
-                      <div className="flex items-center gap-2">
-                        <p className="text-black text-lg">
+                      <div className="flex items-center gap-1">
+                        <p className="text-black text-sm">
                           <span className="font-bold">New date:</span>
                         </p>
                         <input
-                          type="time"
+                          type="date"
                           className="border-2 border-black rounded-lg p-1"
                           value={newDate}
                           onChange={(e) => setNewDate(e.target.value)}
                         />
                       </div>
-                      <div className="flex items-center gap-2">
-                        <p className="text-black text-lg">
+                      <div className="flex items-center gap-1">
+                        <p className="text-black text-sm">
                           <span className="font-bold">New starting time:</span>
                         </p>
                         <input
@@ -212,9 +224,9 @@ export default function CalendarEvent({ event }: Props) {
                       </div>
                     </div>
 
-                    <div className="flex justify-center items-center mt-5">
+                    <div className="flex justify-center items-center mt-5 w-full">
                       <button
-                        className="w-1/2 h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
+                        className="w-1/2 h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white hover:border-2 border-primary"
                         onClick={handleSave}
                       >
                         Save
@@ -234,6 +246,13 @@ export default function CalendarEvent({ event }: Props) {
           width: `${((event.endingMinute - event.startingMinute) / 60) * 100}%`,
           left: `${(event.startingMinute / 60) * 100}%`,
           backgroundColor: event.fillOutColor ?? "#028090",
+          opacity:
+            parseInt(selectedEventIdRedux.split("-")[0]) ===
+              event.appointment_id ||
+            selectedEventIdRedux === "" ||
+            selectedEventIdRedux.split("-")[1] !== selectedDeviceParent
+              ? 1
+              : 0.3,
         }}
         onClick={handleOpenDetails}
       >
