@@ -11,7 +11,6 @@ import { store } from "./redux/store";
 import Home from "./routes/Home";
 import Register from "./routes/Register";
 import ForgotPassword from "./routes/ForgotPassword";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import AuthWrapper from "./components/AuthWrapper";
 import RegisterGoogle from "./routes/RegisterGoogle";
 import Appointments from "./routes/Appointments";
@@ -106,5 +105,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-serviceWorkerRegistration.register();
