@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import AppointmentNotification from "./AppointmentNotification";
 import CancelIcon from "../assets/cancelIcon.svg";
+import Loading from "./Loading";
 
 interface Props {
   firstName: string;
@@ -20,10 +21,14 @@ export default function PatientComponent({
   weight,
   disabilities,
 }: Props) {
+  const [loading, setLoading] = useState(false);
   const [openProfileDetailsModal, setOpenProfileDetailsModal] = useState(false);
+
+  const handleOpenProfileDetailsModal = () => {};
 
   return (
     <>
+      {loading && <Loading />}
       <Transition appear show={openProfileDetailsModal} as={Fragment}>
         <Dialog
           as="div"

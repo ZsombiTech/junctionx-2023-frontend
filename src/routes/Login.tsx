@@ -18,7 +18,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (type: number) => {
+  const handleLogin = async () => {
     if (email === "" || password === "") {
       toast.error("Please fill out all fields", {
         position: toast.POSITION.BOTTOM_LEFT,
@@ -28,9 +28,11 @@ export default function Login() {
 
     setLoading(true);
 
-    const loginRequest = await loginApi({ email, password });
+    await loginApi({ email, password });
 
-    if (loginRequest.status === StatusCodes.OK) {
+    const loginRequest2 = await loginApi({ email, password });
+
+    if (loginRequest2.status === StatusCodes.OK) {
       toast.success("Successful login", {
         position: toast.POSITION.BOTTOM_LEFT,
       });
@@ -49,7 +51,7 @@ export default function Login() {
       }
     } else {
       setLoading(false);
-      toast.error(loginRequest.data.msg, {
+      toast.error(loginRequest2.data.msg, {
         position: toast.POSITION.BOTTOM_LEFT,
       });
     }
@@ -83,14 +85,8 @@ export default function Login() {
           />
           <div className="flex items-center gap-2 w-full lg:w-2/3">
             <button
-              className="w-1/2 h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
-              onClick={() => handleLogin(0)}
-            >
-              Management
-            </button>
-            <button
-              className="w-1/2 h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
-              onClick={() => handleLogin(1)}
+              className="w-full h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
+              onClick={() => handleLogin}
             >
               Login
             </button>
