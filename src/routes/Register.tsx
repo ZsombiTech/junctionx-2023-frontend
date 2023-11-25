@@ -96,7 +96,7 @@ export default function Register() {
           <div className="flex items-center gap-2 w-full lg:w-2/3">
             <button
               className="w-full h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
-              onClick={() => handleRegister}
+              onClick={handleRegister}
             >
               Register
             </button>

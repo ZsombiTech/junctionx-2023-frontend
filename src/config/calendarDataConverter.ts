@@ -217,12 +217,18 @@ export const calendarDataConverter = (rawData: any) => {
             appointment_id: event.appointment_id,
           };
 
-          result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
-            event.start_hour * 8 + weekday - 1
-          ].events.push(eventObj);
-          result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
-            event.start_hour * 8 + weekday + 7
-          ].events.push(eventObj2);
+          if (
+            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+              event.start_hour * 8 + weekday - 1
+            ].events
+          ) {
+            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+              event.start_hour * 8 + weekday - 1
+            ].events.push(eventObj);
+            result[`${machineName}#${machineId}`][arrayIndexByMonth].events[
+              event.start_hour * 8 + weekday + 7
+            ].events.push(eventObj2);
+          }
         } else {
           const eventObj = {
             name: event.display_name,
