@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { registerApi } from "../api";
-import { StatusCodes } from "http-status-codes";
+import { Link } from "react-router-dom";
 
 export default function RegisterGoogle() {
   const isMobile = window.innerWidth <= 640;
 
-  const navigate = useNavigate();
   const [cancerType, setCancerType] = useState("");
   const [age, setAge] = useState(0);
   const [disablities, setDisabilities] = useState("");

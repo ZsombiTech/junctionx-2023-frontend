@@ -3,6 +3,7 @@ import CancelIcon from "../assets/cancelIcon.svg";
 import { Dialog, Transition } from "@headlessui/react";
 import { getAppointmentApi } from "../api";
 import { allDevices } from "../config/calendarDataConverter";
+import { useAppSelector } from "../redux/hooks";
 
 interface Props {
   event: {
@@ -13,9 +14,13 @@ interface Props {
     start_hour: number;
     appointment_id: number;
   };
+  selectedDeviceParent: string;
 }
 
-export default function CalendarEvent({ event }: Props) {
+export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
+  const selectedEventIdRedux = useAppSelector(
+    (state) => state.app.selectedEventId
+  );
   const [openCalendarEventModal, setOpenCalendarEventModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [clientName, setClientName] = useState("");
@@ -241,6 +246,13 @@ export default function CalendarEvent({ event }: Props) {
           width: `${((event.endingMinute - event.startingMinute) / 60) * 100}%`,
           left: `${(event.startingMinute / 60) * 100}%`,
           backgroundColor: event.fillOutColor ?? "#028090",
+          opacity:
+            parseInt(selectedEventIdRedux.split("-")[0]) ===
+              event.appointment_id ||
+            selectedEventIdRedux === "" ||
+            selectedEventIdRedux.split("-")[1] !== selectedDeviceParent
+              ? 1
+              : 0.3,
         }}
         onClick={handleOpenDetails}
       >

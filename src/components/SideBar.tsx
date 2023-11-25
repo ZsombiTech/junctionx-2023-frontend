@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import SideBarMenuItem from "./SideBarMenuItem";
 import { getUpcomingApi } from "../api";
 import { StatusCodes } from "http-status-codes";
+import { useAppSelector } from "../redux/hooks";
 
 export default function SideBar() {
+  const selectedDeviceRedux = useAppSelector(
+    (state) => state.app.selectedDevice
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [allUpcomingEvents, setAllUpcomingEvents] = useState<any[]>([]);
   const [isOpened, setIsOpened] = useState(false);
@@ -16,7 +20,6 @@ export default function SideBar() {
       const allUpcomingEventsRequest = await getUpcomingApi();
 
       if (allUpcomingEventsRequest.status === StatusCodes.OK) {
-        console.log(allUpcomingEventsRequest.data);
         setAllUpcomingEvents(allUpcomingEventsRequest.data);
       }
 
@@ -39,24 +42,51 @@ export default function SideBar() {
         </div>
       ) : (
         <div className="h-full p-3 overflow-y-auto noscrollbar">
-          {allUpcomingEvents.map((patient, index) => {
-            return (
-              <SideBarMenuItem
-                title={"Therapy"}
-                name={
-                  patient.demand.patient.first_name +
-                  " " +
-                  patient.demand.patient.last_name
-                }
-                device_name={`${patient.resource.type}#${patient.resource.id}`}
-                age={Math.floor(Math.random() * 60) + 20}
-                type={patient.demand.cancer_type.region}
-                weight={Math.floor(Math.random() * 70) + 50}
-                end_time={patient.start}
-                key={index}
-              />
-            );
-          })}
+          {selectedDeviceRedux !== ""
+            ? allUpcomingEvents
+                .filter(
+                  (patient) =>
+                    `${patient.resource.type}#${patient.resource.id}` ===
+                    selectedDeviceRedux
+                )
+                .map((patient, index) => {
+                  return (
+                    <SideBarMenuItem
+                      id={patient.id}
+                      title={"Therapy"}
+                      name={
+                        patient.demand.patient.first_name +
+                        " " +
+                        patient.demand.patient.last_name
+                      }
+                      device_name={`${patient.resource.type}#${patient.resource.id}`}
+                      age={Math.floor(Math.random() * 60) + 20}
+                      type={patient.demand.cancer_type.region}
+                      weight={Math.floor(Math.random() * 70) + 50}
+                      end_time={patient.start}
+                      key={index}
+                    />
+                  );
+                })
+            : allUpcomingEvents.map((patient, index) => {
+                return (
+                  <SideBarMenuItem
+                    id={patient.id}
+                    title={"Therapy"}
+                    name={
+                      patient.demand.patient.first_name +
+                      " " +
+                      patient.demand.patient.last_name
+                    }
+                    device_name={`${patient.resource.type}#${patient.resource.id}`}
+                    age={Math.floor(Math.random() * 60) + 20}
+                    type={patient.demand.cancer_type.region}
+                    weight={Math.floor(Math.random() * 70) + 50}
+                    end_time={patient.start}
+                    key={index}
+                  />
+                );
+              })}
         </div>
       )}
     </div>
@@ -78,24 +108,51 @@ export default function SideBar() {
       <div className="h-px bg-black w-full mt-1"></div>
 
       <div className="h-full p-3 overflow-y-auto">
-        {allUpcomingEvents.map((patient, index) => {
-          return (
-            <SideBarMenuItem
-              title={"Therapy"}
-              name={
-                patient.demand.patient.first_name +
-                " " +
-                patient.demand.patient.last_name
-              }
-              device_name={`${patient.resource.type}#${patient.resource.id}`}
-              age={Math.floor(Math.random() * 60) + 20}
-              type={patient.demand.cancer_type.region}
-              weight={Math.floor(Math.random() * 70) + 50}
-              end_time={patient.start}
-              key={index}
-            />
-          );
-        })}
+        {selectedDeviceRedux !== ""
+          ? allUpcomingEvents
+              .filter(
+                (patient) =>
+                  `${patient.resource.type}#${patient.resource.id}` ===
+                  selectedDeviceRedux
+              )
+              .map((patient, index) => {
+                return (
+                  <SideBarMenuItem
+                    id={patient.id}
+                    title={"Therapy"}
+                    name={
+                      patient.demand.patient.first_name +
+                      " " +
+                      patient.demand.patient.last_name
+                    }
+                    device_name={`${patient.resource.type}#${patient.resource.id}`}
+                    age={Math.floor(Math.random() * 60) + 20}
+                    type={patient.demand.cancer_type.region}
+                    weight={Math.floor(Math.random() * 70) + 50}
+                    end_time={patient.start}
+                    key={index}
+                  />
+                );
+              })
+          : allUpcomingEvents.map((patient, index) => {
+              return (
+                <SideBarMenuItem
+                  id={patient.id}
+                  title={"Therapy"}
+                  name={
+                    patient.demand.patient.first_name +
+                    " " +
+                    patient.demand.patient.last_name
+                  }
+                  device_name={`${patient.resource.type}#${patient.resource.id}`}
+                  age={Math.floor(Math.random() * 60) + 20}
+                  type={patient.demand.cancer_type.region}
+                  weight={Math.floor(Math.random() * 70) + 50}
+                  end_time={patient.start}
+                  key={index}
+                />
+              );
+            })}
       </div>
     </div>
   ) : (

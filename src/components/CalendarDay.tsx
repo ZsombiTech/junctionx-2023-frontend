@@ -3,10 +3,15 @@ import CalendarEvent from "./CalendarEvent";
 
 interface Props {
   item: any;
+  selectedDeviceParent: string;
   index: number;
 }
 
-export default function CalendarDay({ item, index }: Props) {
+export default function CalendarDay({
+  item,
+  selectedDeviceParent,
+  index,
+}: Props) {
   let borderClass = "";
   if (
     typeof item === "string" &&
@@ -47,7 +52,11 @@ export default function CalendarDay({ item, index }: Props) {
           }[];
         }
       ).events.map((event, index) => (
-        <CalendarEvent event={event} key={index} />
+        <CalendarEvent
+          event={event}
+          key={index}
+          selectedDeviceParent={selectedDeviceParent}
+        />
       ))}
     </div>
   );

@@ -53,12 +53,37 @@ export default function Calendar() {
       if (calendarRequest.status === StatusCodes.OK) {
         const calendarData = calendarRequest.data;
         const calendarDataConverted = calendarDataConverter(calendarData);
+
+        let firstWeek = 0;
+        for (let i = 0; i < calendarDataConverted[selectedDevice].length; i++) {
+          let breakFunction = false;
+          for (
+            let x = 0;
+            x < calendarDataConverted[selectedDevice][i].events.length;
+            x++
+          ) {
+            if (
+              typeof calendarDataConverted[selectedDevice][i].events[x] !==
+                "string" &&
+              calendarDataConverted[selectedDevice][i].events[x].events.length >
+                0
+            ) {
+              firstWeek = i;
+              breakFunction = true;
+            }
+          }
+          if (breakFunction) {
+            break;
+          }
+        }
+
+        setCurrentWeek(firstWeek);
         setCalendars(calendarDataConverted);
       }
     };
 
     asyncFunction();
-  }, []);
+  }, [selectedDevice]);
 
   return (
     <>
@@ -197,7 +222,7 @@ export default function Calendar() {
             Test your data
           </button>
         </div>
-        <div className="w-full lg:w-4/5 grid grid-cols-15 bg-lightBlue h-[55vh] lg:h-[60vh] 2xl:h-[70vh] overflow-y-auto py-3 noscrollbar">
+        <div className="w-full lg:w-4/5 grid grid-cols-15 bg-lightBlue h-[55vh] lg:h-[55vh] 2xl:h-[70vh] overflow-y-auto py-3 noscrollbar">
           <div className="flex justify-center items-center col-span-1 mb-3"></div>
           {/* @ts-ignore */}
           {calendars &&
@@ -224,7 +249,14 @@ export default function Calendar() {
             calendars[selectedDevice][currentWeek] &&
             (calendars[selectedDevice][currentWeek] as any).events.map(
               (item: any, index: number) => {
-                return <CalendarDay item={item} index={index} key={index} />;
+                return (
+                  <CalendarDay
+                    item={item}
+                    index={index}
+                    selectedDeviceParent={selectedDevice}
+                    key={index}
+                  />
+                );
               }
             )}
         </div>

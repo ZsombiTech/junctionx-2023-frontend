@@ -1,4 +1,6 @@
 import React from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setSelectedDevice } from "../redux/reducers/appReducer";
 
 interface Props {
   type: string;
@@ -13,8 +15,22 @@ export default function BannerContainer({
   next_treatment,
   index,
 }: Props) {
+  const selectedDeviceRedux = useAppSelector(
+    (state) => state.app.selectedDevice
+  );
+  const dipatch = useAppDispatch();
+
   return (
-    <div className="flex flex-col justify-center items-center bg-lightBlue rounded-lg w-[10rem] h-[9rem] shrink-0 p-2 shadow-[1px_1px_4px_4px_rgba(2,128,144,1)]">
+    <div
+      className="flex flex-col justify-center items-center bg-lightBlue rounded-lg w-[10rem] h-[9rem] shrink-0 p-2 shadow-[1px_1px_4px_4px_rgba(2,128,144,1)] cursor-pointer hover:transform hover:scale-105 transition-all duration-300"
+      onClick={() => {
+        if (selectedDeviceRedux === `${type}#${index + 1}`) {
+          dipatch(setSelectedDevice(""));
+          return;
+        }
+        dipatch(setSelectedDevice(`${type}#${index + 1}`));
+      }}
+    >
       <h1 className="text-2xl font-bold uppercase text-black">
         LINAC #{index + 1}
       </h1>

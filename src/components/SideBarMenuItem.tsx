@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useAppDispatch } from "../redux/hooks";
+import { setSelectedEventId } from "../redux/reducers/appReducer";
 
 interface Props {
+  id: number;
   title: string;
   name: string;
   device_name: string;
@@ -11,6 +14,7 @@ interface Props {
 }
 
 export default function SideBarMenuItem({
+  id,
   title,
   name,
   device_name,
@@ -19,6 +23,7 @@ export default function SideBarMenuItem({
   weight,
   end_time,
 }: Props) {
+  const dispatch = useAppDispatch();
   const [remainingTimeMinuteSecond, setRemainingTimeMinuteSecond] =
     useState("00:00");
   const remainingLabel =
@@ -54,7 +59,15 @@ export default function SideBarMenuItem({
   }, [end_time]);
 
   return (
-    <div className="flex justify-between bg-lightGray rounded-lg pl-3 h-[10rem] mb-4 shadow-[1px_1px_4px_4px_rgba(2,128,144,0.2)]">
+    <div
+      className="flex justify-between bg-lightGray rounded-lg pl-3 h-[10rem] mb-4 shadow-[1px_1px_4px_4px_rgba(2,128,144,0.2)] cursor-pointer hover:transform hover:scale-105 transition-all duration-300"
+      onMouseEnter={() => {
+        dispatch(setSelectedEventId(`${id}-${device_name}`));
+      }}
+      onMouseLeave={() => {
+        dispatch(setSelectedEventId(""));
+      }}
+    >
       <div className="flex flex-col gap-1 my-2">
         <h1 className="font-bold text-lg text-primary">
           {title} - {device_name}
@@ -65,8 +78,11 @@ export default function SideBarMenuItem({
           <p className="font-medium text-sm">Age: {age}</p>
           <p className="font-medium text-sm">Type: {type}</p>
           <p className="font-medium text-sm">Weight: {weight}</p>
-          <p className="font-medium text-sm">
-            Remaining time: {remainingTimeMinuteSecond}
+          <p className="font-medium text-sm -mt-2">
+            Remaining time:{" "}
+            <span className="font-bold text-lg">
+              {remainingTimeMinuteSecond}
+            </span>
           </p>
         </div>
       </div>
