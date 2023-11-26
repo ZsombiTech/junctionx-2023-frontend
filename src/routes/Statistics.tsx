@@ -165,7 +165,7 @@ export default function Statistics() {
           </div>
           <div className="w-[85%] flex flex-col justify-center items-center border-2 border-black rounded-lg p-2">
             <p className="text-center text-base text-darkerGray">
-              Breaks per machine
+              Average break time per machine
             </p>
             <Chart
               chartType="Line"
