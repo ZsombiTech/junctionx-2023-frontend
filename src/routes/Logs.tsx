@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
 import SideBar from "../components/SideBar";
-import { getLogsApi } from "../api";
+import { deleteLogsApi, getLogsApi } from "../api";
+import { toast } from "react-toastify";
 
 export default function Logs() {
   const [loading, setLoading] = useState(true);
@@ -28,14 +29,37 @@ export default function Logs() {
     asyncFunc();
   }, []);
 
+  const handleClearData = async () => {
+    setLoading(true);
+
+    const deleteRequest = await deleteLogsApi();
+
+    if (deleteRequest.status === 200) {
+      toast.success("Successfully deleted logs", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+      setLogsData([]);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <>
       {loading && <Loading />}
       <Navbar />
       <div className="w-full lg:w-4/5 p-3 flex flex-col justify-center items-center">
-        <h1 className="text-center text-4xl font-bold text-black">
-          Past events
-        </h1>
+        <div className="w-full flex justify-between items-center mt-4">
+          <h1 className="text-center text-2xl font-bold text-black">
+            Past events
+          </h1>
+          <button
+            className="h-10 py-1 px-12 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white border-primary hover:border-2"
+            onClick={handleClearData}
+          >
+            Clear data
+          </button>
+        </div>
         <div className="w-full h-[1px] bg-black mt-4"></div>
         <div className="w-full lgw-1/2 h-[70vh] overflow-y-auto noscrollbar mt-5">
           {logsData.map((log: any, index: number) => {
@@ -51,6 +75,12 @@ export default function Logs() {
               </div>
             );
           })}
+
+          {logsData.length === 0 && (
+            <h1 className="text-black text-center text-xl font-bold mt-5">
+              No logs found
+            </h1>
+          )}
         </div>
       </div>
       <SideBar />

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import SideBarMenuItem from "./SideBarMenuItem";
 import { getUpcomingApi } from "../api";
 import { StatusCodes } from "http-status-codes";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import CancelIcon from "../assets/cancelIcon.svg";
+import { setSelectedDevice } from "../redux/reducers/appReducer";
 
 export default function SideBar() {
   const selectedDeviceRedux = useAppSelector(
     (state) => state.app.selectedDevice
   );
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [allUpcomingEvents, setAllUpcomingEvents] = useState<any[]>([]);
   const [isOpened, setIsOpened] = useState(false);
@@ -34,6 +37,21 @@ export default function SideBar() {
       <h3 className="text-2xl text-darkerGray font-medium text-center mt-5">
         UPCOMING
       </h3>
+      {selectedDeviceRedux !== "" && (
+        <div className="flex items-center justify-center gap-2">
+          <p className="text-lg text-darkerGray font-medium text-center mt-2">
+            Filter by {selectedDeviceRedux}
+          </p>
+          <img
+            src={CancelIcon}
+            alt="Cancel"
+            className="w-5 -mb-2.5 cursor-pointer hover:transform hover:scale-150 transition-all duration-300"
+            onClick={() => {
+              dispatch(setSelectedDevice(""));
+            }}
+          />
+        </div>
+      )}
 
       <div className="h-px bg-darkerGray w-full mt-[12px]"></div>
       {isLoading ? (

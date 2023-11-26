@@ -67,23 +67,23 @@ export default function Login() {
             : "bg-[url('assets/desktopLoginBackground.jpg')]"
         } h-[100vh] w-full bg-contain bg-cover flex justify-center items-center`}
       >
-        <div className="bg-purple m-5 w-full md:w-3/4 lg:w-1/3 p-8 bg-opacity-10 backdrop-blur-sm flex flex-col items-center rounded-lg">
+        <div className="bg-purple m-5 w-full md:w-3/4 lg:w-1/3 p-8 bg-opacity-10 lg:bg-opacity-30 backdrop-blur-sm flex flex-col items-center rounded-lg">
           <h2 className="text-white text-5xl">Login</h2>
           <input
             type="email"
             placeholder="Email"
-            className="w-72 h-10 mt-8 p-2 rounded-md bg-lighterGray text-white focus:outline-none placeholder-white placeholder:text-sm shadow-[1px_1px_4px_4px_rgba(236,246,255,0.5)]"
+            className="w-72 h-10 mt-8 p-2 rounded-md bg-lighterGray text-darkerGray focus:outline-none placeholder-darkerGray placeholder:text-sm shadow-[1px_1px_4px_4px_rgba(236,246,255,0.5)]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-72 h-10 mt-6 p-2 rounded-md bg-lighterGray text-white focus:outline-none placeholder-white placeholder:text-sm shadow-[1px_1px_4px_4px_rgba(236,246,255,0.5)]"
+            className="w-72 h-10 mt-6 p-2 rounded-md bg-lighterGray text-darkerGray focus:outline-none placeholder-darkerGray placeholder:text-sm shadow-[1px_1px_4px_4px_rgba(236,246,255,0.5)]"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="flex items-center gap-2 w-full lg:w-2/3">
+          <div className="flex items-center gap-2 w-72">
             <button
               className="w-full h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
               onClick={handleLogin}

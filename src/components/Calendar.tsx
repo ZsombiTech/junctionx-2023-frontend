@@ -213,7 +213,12 @@ export default function Calendar() {
               </div>
             </div>
 
-            <h2 className="font-bold text-2xl">{monthName}</h2>
+            <h2 className="font-bold text-2xl">
+              {calendars &&
+              currentWeek === (calendars[selectedDevice] as any).length - 1
+                ? "DEC-JAN"
+                : monthName}
+            </h2>
           </div>
           <button
             className="px-3 mr-6 py-1 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white hover:border-2 border-primary"

@@ -2,17 +2,30 @@ import React, { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
 import SideBar from "../components/SideBar";
-import { getLogsApi } from "../api";
+import { getStatisticsApi } from "../api";
 import { Chart } from "react-google-charts";
 
 export default function Statistics() {
   const [loading, setLoading] = useState(true);
+  const [pieChartData, setPieChartData] = useState<any[]>([]);
 
   useEffect(() => {
     const asyncFunc = async () => {
-      const statisticsRequest = await getLogsApi();
+      const statisticsRequest = await getStatisticsApi();
 
       if (statisticsRequest.status === 200) {
+        const rawData = statisticsRequest.data;
+
+        const pieChartData = [
+          ["Device", "Usage"],
+          ["TrueBeam#1", rawData[0]["1"]],
+          ["TrueBeam#2", rawData[0]["2"]],
+          ["VitalBeam#1", rawData[0]["3"]],
+          ["VitalBeam#2", rawData[0]["4"]],
+          ["Unique#1", rawData[0]["4"]],
+        ];
+
+        setPieChartData(pieChartData);
       }
 
       setLoading(false);
@@ -20,19 +33,6 @@ export default function Statistics() {
 
     asyncFunc();
   }, []);
-
-  const data = [
-    ["Task", "Hours per Day"],
-    ["TrueBeam#1", 11],
-    ["TrueBeam#2", 2],
-    ["VitalBeam#1", 2],
-    ["VitalBeam#2", 2],
-    ["Unique#1", 7],
-  ];
-
-  const options = {
-    is3D: true,
-  };
 
   const data2 = [
     [
@@ -78,7 +78,7 @@ export default function Statistics() {
     animation: {
       startup: true,
       easing: "linear",
-      duration: 4000,
+      duration: 1500,
     },
     enableInteractivity: false,
   };
@@ -92,11 +92,45 @@ export default function Statistics() {
     ["Unique#1", 21.45, "color: #e5e4e2"], // CSS-style declaration
   ];
 
+  const handleRefresh = async () => {
+    setLoading(true);
+
+    const statisticsRequest = await getStatisticsApi();
+
+    if (statisticsRequest.status === 200) {
+      const rawData = statisticsRequest.data;
+
+      const pieChartData = [
+        ["Device", "Usage"],
+        ["TrueBeam#1", rawData[0]["1"]],
+        ["TrueBeam#2", rawData[0]["2"]],
+        ["VitalBeam#1", rawData[0]["3"]],
+        ["VitalBeam#2", rawData[0]["4"]],
+        ["Unique#1", rawData[0]["4"]],
+      ];
+
+      setPieChartData(pieChartData);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <>
       {loading && <Loading />}
       <Navbar />
       <div className="w-full lg:w-4/5 p-3 flex flex-col justify-center items-center">
+        <div className="w-full flex justify-between items-center mt-4">
+          <h1 className="text-center text-2xl font-bold text-black">
+            Check out our statistics
+          </h1>
+          <button
+            className="h-10 py-1 px-12 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white border-primary hover:border-2"
+            onClick={handleRefresh}
+          >
+            Refresh
+          </button>
+        </div>
         <div className="w-full flex flex-col lg:flex-row justify-between items-center mt-4 gap-3">
           <div className="w-[85%] flex flex-row justify-center items-center border-2 border-black rounded-lg p-2">
             <Chart
@@ -110,8 +144,10 @@ export default function Statistics() {
           <div className="w-[85%] flex flex-row justify-center items-center border-2 border-black rounded-lg p-2">
             <Chart
               chartType="PieChart"
-              data={data}
-              options={options}
+              data={pieChartData}
+              options={{
+                is3D: true,
+              }}
               width={"100%"}
               height={"400px"}
             />
