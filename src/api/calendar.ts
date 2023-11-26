@@ -35,3 +35,12 @@ export const getLogsApi = async () => {
     return error;
   }
 };
+
+export const deleteLogsApi = async () => {
+  try {
+    const response = await axios.delete(`/v1/logs`);
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

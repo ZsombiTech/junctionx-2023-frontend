@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import VarianLogo from "../assets/varianLogoSvg.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutApi } from "../api";
 
 export default function Navbar() {
+  const [currentTime, setCurrentTime] = useState("00:00:00");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,6 +14,14 @@ export default function Navbar() {
     navigate("/login");
     window.location.reload();
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const date = new Date();
+      setCurrentTime(date.toLocaleTimeString());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="bg-lightBlue w-full lg:w-4/5 py-3 flex items-center justify-between px-5 border-b-[1px] border-darkerGray">
@@ -61,7 +70,11 @@ export default function Navbar() {
           Logs
         </Link>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
+        <p className="text-sm lg:text-2xl font-bold text-grayOne border-grayOne border-r-2 pr-5">
+          {currentTime}
+        </p>
+
         <Link
           to="/settings"
           className={`text-sm lg:text-lg font-medium cursor-pointer ${

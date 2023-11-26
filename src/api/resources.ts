@@ -8,3 +8,12 @@ export const getAllResourcesApi = async () => {
     return error;
   }
 };
+
+export const getStatisticsApi = async () => {
+  try {
+    const response = await axios.get("/v1/statistics");
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

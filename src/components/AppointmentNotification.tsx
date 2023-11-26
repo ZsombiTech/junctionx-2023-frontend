@@ -15,6 +15,7 @@ export default function AppointmentNotification({
 }: Props) {
   return (
     <div className="w-full flex flex-col justify-center items-start bg-lighterGray rounded-lg shadow-[1px_1px_4px_4px_rgba(103,116,152,0.5)] mb-5">
+      <p className="text-center w-full">(Sample appointment:)</p>
       <h1 className="text-2xl font-bold text-primary mt-1 ml-1 mr-1">
         Treatment appointment
       </h1>

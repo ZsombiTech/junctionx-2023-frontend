@@ -75,7 +75,6 @@ export default function SideBarMenuItem({
         <h2 className="font-bold text-lg">{name}</h2>
 
         <div className="flex flex-col">
-          <p className="font-medium text-sm">Age: {age}</p>
           <p className="font-medium text-sm">Type: {type}</p>
           <p className="font-medium text-sm">Weight: {weight}</p>
           <p className="font-medium text-sm -mt-2">
