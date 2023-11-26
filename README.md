@@ -1,6 +1,6 @@
 # JunctionX Budapest 2023 - Frontend
 
-![alt text](https://media.post.rvohealth.io/wp-content/uploads/2020/08/hospital-acquired-nosocomial-infections_thumb-1-732x549.jpg)
+![alt text](https://i.ibb.co/xHPCFnK/mainPage.png)
 
 ## Local development
 
