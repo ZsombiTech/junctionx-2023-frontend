@@ -221,7 +221,7 @@ export default function Calendar() {
             </h2>
           </div>
           <button
-            className="px-3 mr-6 py-1 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white hover:border-2 border-primary"
+            className="px-3 mr-6 py-1 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white hover:border-2 border-primary hidden lg:block"
             onClick={() => setOpenDevTool(true)}
           >
             Test your data

@@ -202,7 +202,7 @@ export const calendarDataConverter = (rawData: any) => {
             name: event.display_name,
             startingMinute: event.start_minute,
             endingMinute: 60,
-            fillOutColor: event.color,
+            color: event.color,
             start_hour: event.start_hour,
             appointment_id: event.appointment_id,
           };
@@ -211,7 +211,7 @@ export const calendarDataConverter = (rawData: any) => {
             name: event.display_name,
             startingMinute: 0,
             endingMinute: event.start_minute + event.duration - 60,
-            fillOutColor: event.color,
+            color: event.color,
             start_hour: event.start_hour,
             appointment_id: event.appointment_id,
           };
@@ -265,7 +265,7 @@ export const calendarDataConverter = (rawData: any) => {
             name: event.display_name,
             startingMinute: event.start_minute,
             endingMinute: event.start_minute + event.duration,
-            fillOutColor: event.color,
+            color: event.color,
             start_hour: event.start_hour,
             appointment_id: event.appointment_id,
           };

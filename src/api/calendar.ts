@@ -44,3 +44,18 @@ export const deleteLogsApi = async () => {
     return error;
   }
 };
+
+export const patchAppointmentApi = async (
+  appointment_id: number,
+  data: any
+) => {
+  try {
+    const response = await axios.patch(
+      `/v1/appointments/${appointment_id}`,
+      data
+    );
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

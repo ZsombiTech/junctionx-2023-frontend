@@ -41,7 +41,7 @@ export default function Statistics() {
           ],
         ];
 
-        const pointChartData = [["Average events", "Days"]];
+        const pointChartData = [["Average patients", "Days"]];
 
         Object.keys(rawData[3]).forEach((key) => {
           columnChartData.push([key, rawData[3][key], "#3366cc"]);
@@ -73,8 +73,7 @@ export default function Statistics() {
   }, []);
 
   const options3 = {
-    title: "Average events per day",
-    hAxis: { title: "Average events", minValue: 0, maxValue: 5 },
+    hAxis: { title: "Average patients", minValue: 0, maxValue: 5 },
     vAxis: { title: "Days", minValue: 0, maxValue: 5 },
     legend: "none",
     animation: {
@@ -125,7 +124,10 @@ export default function Statistics() {
           </button>
         </div>
         <div className="w-full flex flex-col lg:flex-row justify-between items-center mt-4 gap-3">
-          <div className="w-[85%] flex flex-row justify-center items-center border-2 border-black rounded-lg p-2">
+          <div className="w-[85%] flex flex-col justify-center items-center border-2 border-black rounded-lg p-2">
+            <p className="text-center text-base text-darkerGray">
+              Average patients per day
+            </p>
             <Chart
               chartType="ScatterChart"
               width="100%"
@@ -134,7 +136,10 @@ export default function Statistics() {
               options={options3}
             />
           </div>
-          <div className="w-[85%] flex flex-row justify-center items-center border-2 border-black rounded-lg p-2">
+          <div className="w-[85%] flex flex-col justify-center items-center border-2 border-black rounded-lg p-2">
+            <p className="text-center text-base text-darkerGray">
+              Usage of each machine
+            </p>
             <Chart
               chartType="PieChart"
               data={pieChartData}
@@ -147,7 +152,10 @@ export default function Statistics() {
           </div>
         </div>
         <div className="w-full flex flex-col lg:flex-row justify-between items-center mt-4 gap-3">
-          <div className="w-[85%] flex flex-row justify-center items-center border-2 border-black rounded-lg p-2">
+          <div className="w-[85%] flex flex-col justify-center items-center border-2 border-black rounded-lg p-2">
+            <p className="text-center text-base text-darkerGray">
+              Patients per cancer type
+            </p>
             <Chart
               chartType="ColumnChart"
               width="100%"
@@ -155,7 +163,10 @@ export default function Statistics() {
               data={columnChartData}
             />
           </div>
-          <div className="w-[85%] flex flex-row justify-center items-center border-2 border-black rounded-lg p-2">
+          <div className="w-[85%] flex flex-col justify-center items-center border-2 border-black rounded-lg p-2">
+            <p className="text-center text-base text-darkerGray">
+              Breaks per machine
+            </p>
             <Chart
               chartType="Line"
               width="100%"
