@@ -76,16 +76,22 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <p className="text-center text-white mt-1">
+            (Test account email: admin@ad.min)
+          </p>
           <input
             type="password"
             placeholder="Password"
-            className="w-72 h-10 mt-6 p-2 rounded-md bg-lighterGray text-darkerGray focus:outline-none placeholder-darkerGray placeholder:text-sm shadow-[1px_1px_4px_4px_rgba(236,246,255,0.5)]"
+            className="w-72 h-10 mt-3 p-2 rounded-md bg-lighterGray text-darkerGray focus:outline-none placeholder-darkerGray placeholder:text-sm shadow-[1px_1px_4px_4px_rgba(236,246,255,0.5)]"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <p className="text-center text-white mt-1">
+            (Test account password: test)
+          </p>
           <div className="flex items-center gap-2 w-72">
             <button
-              className="w-full h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
+              className="w-full h-10 mt-3 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white"
               onClick={handleLogin}
             >
               Login
