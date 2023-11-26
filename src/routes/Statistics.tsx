@@ -8,6 +8,9 @@ import { Chart } from "react-google-charts";
 export default function Statistics() {
   const [loading, setLoading] = useState(true);
   const [pieChartData, setPieChartData] = useState<any[]>([]);
+  const [columnChartData, setColumnChartData] = useState<any[]>([]);
+  const [lineChartData, setLineChartData] = useState<any[]>([]);
+  const [pointChartData, setPointChartData] = useState<any[]>([]);
 
   useEffect(() => {
     const asyncFunc = async () => {
@@ -25,7 +28,42 @@ export default function Statistics() {
           ["Unique#1", rawData[0]["4"]],
         ];
 
+        const columnChartData = [["Cancer", "Cancer Type", { role: "style" }]];
+
+        const lineChartData: any[] = [
+          [
+            "Device",
+            "TrueBeam#1",
+            "TrueBeam#2",
+            "VitalBeam#1",
+            "VitalBeam#2",
+            "Unique#1",
+          ],
+        ];
+
+        const pointChartData = [["Average events", "Days"]];
+
+        Object.keys(rawData[3]).forEach((key) => {
+          columnChartData.push([key, rawData[3][key], "#3366cc"]);
+        });
+
+        Object.keys(rawData[1]).forEach((key) => {
+          pointChartData.push([key, rawData[1][key]]);
+        });
+
+        for (let i = 0; i < 5; i++) {
+          const temp = [i + 1];
+          Object.values(rawData[2]).forEach((item: any) => {
+            temp.push(item * (i + 1));
+          });
+
+          lineChartData.push(temp);
+        }
+
         setPieChartData(pieChartData);
+        setColumnChartData(columnChartData);
+        setLineChartData(lineChartData);
+        setPointChartData(pointChartData);
       }
 
       setLoading(false);
@@ -34,46 +72,10 @@ export default function Statistics() {
     asyncFunc();
   }, []);
 
-  const data2 = [
-    [
-      "Device",
-      "TrueBeam#1",
-      "TrueBeam#2",
-      "VitalBeam#1",
-      "VitalBeam#2",
-      "Unique#1",
-    ],
-    [1, 37.8, 80.8, 41.8, 30.9, 20.5],
-    [2, 30.9, 69.5, 32.4, 21.4, 10.5],
-    [3, 25.4, 57, 25.7, 19.4, 8.4],
-    [4, 11.7, 18.8, 10.5, 7, 6.5],
-    [5, 11.9, 17.6, 10.4, 8.5, 6.2],
-    [6, 8.8, 13.6, 7.7, 6.6, 4.8],
-    [7, 7.6, 12.3, 9.6, 4.8, 4.2],
-    [8, 12.3, 29.2, 10.6, 5.6, 3.6],
-    [9, 16.9, 42.9, 14.8, 8.5, 4.6],
-  ];
-
-  const options2 = {
-    chart: {
-      title: "Devices usage",
-    },
-  };
-
-  const data3 = [
-    ["Age", "Weight"],
-    [8, 12],
-    [4, 5.5],
-    [11, 14],
-    [4, 5],
-    [3, 3.5],
-    [6.5, 7],
-  ];
-
   const options3 = {
-    title: "Age vs. Weight comparison",
-    hAxis: { title: "Age", minValue: 0, maxValue: 15 },
-    vAxis: { title: "Weight", minValue: 0, maxValue: 15 },
+    title: "Average events per day",
+    hAxis: { title: "Average events", minValue: 0, maxValue: 5 },
+    vAxis: { title: "Days", minValue: 0, maxValue: 5 },
     legend: "none",
     animation: {
       startup: true,
@@ -82,15 +84,6 @@ export default function Statistics() {
     },
     enableInteractivity: false,
   };
-
-  const data4 = [
-    ["Device", "Usage", { role: "style" }],
-    ["TrueBeam#1", 8.94, "#b87333"], // RGB value
-    ["TrueBeam#2", 10.49, "silver"], // English color name
-    ["VitalBeam#1", 19.3, "gold"],
-    ["VitalBeam#2", 21.45, "color: #e5e4e2"], // CSS-style declaration
-    ["Unique#1", 21.45, "color: #e5e4e2"], // CSS-style declaration
-  ];
 
   const handleRefresh = async () => {
     setLoading(true);
@@ -137,7 +130,7 @@ export default function Statistics() {
               chartType="ScatterChart"
               width="100%"
               height="400px"
-              data={data3}
+              data={pointChartData}
               options={options3}
             />
           </div>
@@ -159,7 +152,7 @@ export default function Statistics() {
               chartType="ColumnChart"
               width="100%"
               height="400px"
-              data={data4}
+              data={columnChartData}
             />
           </div>
           <div className="w-[85%] flex flex-row justify-center items-center border-2 border-black rounded-lg p-2">
@@ -167,8 +160,7 @@ export default function Statistics() {
               chartType="Line"
               width="100%"
               height="400px"
-              data={data2}
-              options={options2}
+              data={lineChartData}
             />
           </div>
         </div>
