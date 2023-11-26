@@ -184,8 +184,6 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                           </span>{" "}
                           {event.start_hour}:{event.endingMinute}
                         </p>
-
-                        {event.color}
                       </div>
                       <div className="border-2 border-black rounded-lg p-3 pt-1">
                         <h2 className="text-base text-center text-darkerGray mb-3">

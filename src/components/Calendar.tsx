@@ -83,7 +83,7 @@ export default function Calendar() {
     };
 
     asyncFunction();
-  }, [selectedDevice]);
+  }, []);
 
   return (
     <>
@@ -220,12 +220,12 @@ export default function Calendar() {
                 : monthName}
             </h2>
           </div>
-          <button
+          {/*   <button
             className="px-3 mr-6 py-1 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white hover:border-2 border-primary hidden lg:block"
             onClick={() => setOpenDevTool(true)}
           >
             Test your data
-          </button>
+              </button>*/}
         </div>
         <div className="w-full lg:w-4/5 grid grid-cols-15 bg-lightBlue h-[55vh] lg:h-[55vh] 2xl:h-[70vh] overflow-y-auto py-3 noscrollbar">
           <div className="flex justify-center items-center col-span-1 mb-3"></div>
