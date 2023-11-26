@@ -104,6 +104,8 @@ export default function Patients() {
         return {
           ...patient,
           demand: demand,
+          weight: Math.floor(Math.random() * 70) + 50,
+          age: Math.floor(Math.random() * 60) + 20,
         };
       });
 
@@ -218,18 +220,18 @@ export default function Patients() {
                             setNewPatientCancerType(e.target.value);
                           }}
                         >
-                          <option value={"Craniospinal"}>Craniospinal</option>
-                          <option value={"Breast"}>Breast</option>
-                          <option value={"Breast special"}>
+                          <option value={"craniospinal"}>Craniospinal</option>
+                          <option value={"breast"}>Breast</option>
+                          <option value={"breast special"}>
                             Breast special
                           </option>
-                          <option value={"Head & neck"}>Head & neck</option>
-                          <option value={"Abdomen"}>Abdomen</option>
-                          <option value={"Pelvis"}>Pelvis</option>
-                          <option value={"Crane"}>Crane</option>
-                          <option value={"Lung"}>Lung</option>
-                          <option value={"Lung special"}>Lung special</option>
-                          <option value={"Whole Brain"}>Whole Brain</option>
+                          <option value={"head & neck"}>Head & neck</option>
+                          <option value={"abdomen"}>Abdomen</option>
+                          <option value={"elvis"}>Pelvis</option>
+                          <option value={"crane"}>Crane</option>
+                          <option value={"lung"}>Lung</option>
+                          <option value={"lung special"}>Lung special</option>
+                          <option value={"whole Brain"}>Whole Brain</option>
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-1 pointer-events-none">
                           <svg

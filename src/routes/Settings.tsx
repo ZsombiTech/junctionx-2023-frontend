@@ -25,6 +25,7 @@ export default function Settings() {
   );
 
   const handleDeleteFloor = () => {
+    floors.splice(selectedFloor, 1);
     setClickedContextMenu(false);
     setE(undefined);
   };
