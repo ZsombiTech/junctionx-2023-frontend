@@ -59,3 +59,12 @@ export const patchAppointmentApi = async (
     return error;
   }
 };
+
+export const addNewMaintenanceApi = async (data: any) => {
+  try {
+    const response = await axios.post(`/v1/maintenances`, data);
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};
