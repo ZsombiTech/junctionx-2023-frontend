@@ -17,3 +17,12 @@ export const getAllAccountsApi = async () => {
     return error;
   }
 };
+
+export const deleteAccountApi = async (account_id: number) => {
+  try {
+    const response = await axios.delete(`/v1/accounts/${account_id}`);
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

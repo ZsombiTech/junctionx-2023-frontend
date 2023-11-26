@@ -22,7 +22,11 @@ export default function BannerContainer({
 
   return (
     <div
-      className="flex flex-col justify-center items-center bg-lightBlue rounded-lg w-[10rem] h-[9rem] shrink-0 p-2 shadow-[1px_1px_4px_4px_rgba(2,128,144,1)] cursor-pointer hover:transform hover:scale-105 transition-all duration-300"
+      className={`flex flex-col justify-center items-center bg-lightBlue rounded-lg w-[10rem] h-[10rem] shrink-0 p-2 ${
+        status.includes("maintanance")
+          ? "shadow-[1px_1px_4px_4px_rgba(255,63,63,1)]"
+          : "shadow-[1px_1px_4px_4px_rgba(2,128,144,1)]"
+      } cursor-pointer hover:transform hover:scale-105 transition-all duration-300`}
       onClick={() => {
         if (selectedDeviceRedux === `${type}#${index + 1}`) {
           dipatch(setSelectedDevice(""));

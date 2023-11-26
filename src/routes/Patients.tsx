@@ -295,6 +295,7 @@ export default function Patients() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-11/12 lg:w-[78%] m-3">
         {allPatients.map((patient: any, index: number) => (
           <PatientComponent
+            id={patient.id}
             firstName={patient.first_name}
             lastName={patient.last_name}
             age={patient.age}

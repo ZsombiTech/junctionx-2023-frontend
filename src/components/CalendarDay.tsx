@@ -46,7 +46,7 @@ export default function CalendarDay({
             name: string;
             startingMinute: number;
             endingMinute: number;
-            fillOutColor: string;
+            color: string;
             start_hour: number;
             appointment_id: number;
           }[];

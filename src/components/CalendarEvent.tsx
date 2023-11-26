@@ -1,16 +1,17 @@
 import React, { Fragment, useState } from "react";
 import CancelIcon from "../assets/cancelIcon.svg";
 import { Dialog, Transition } from "@headlessui/react";
-import { getAppointmentApi } from "../api";
+import { getAppointmentApi, patchAppointmentApi } from "../api";
 import { allDevices } from "../config/calendarDataConverter";
 import { useAppSelector } from "../redux/hooks";
+import { toast } from "react-toastify";
 
 interface Props {
   event: {
     name: string;
     startingMinute: number;
     endingMinute: number;
-    fillOutColor: string;
+    color: string;
     start_hour: number;
     appointment_id: number;
   };
@@ -29,12 +30,23 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
   const [averageTreatmentDuration, setAverageTreatmentDuration] = useState(0);
   const [numberOfFractions, setNumberOfFractions] = useState(0);
   const [isInPatient, setIsInPatient] = useState(false);
+  const [demandId, setDemandId] = useState(0);
+  const [roomId, setRoomId] = useState(0);
 
-  const [newDate, setNewDate] = useState("2023-11-25");
+  const [newDate, setNewDate] = useState("2023-11-26");
   const [newStartingTime, setNewStartingTime] = useState("00:00");
-  const [selectedDevice, setSelectedDevice] = useState(allDevices[0].name);
+  const [newEndDate, setEndNewDate] = useState("2023-11-26");
+  const [newEndTime, setNewEndTime] = useState("00:00");
+  const [selectedDevice, setSelectedDevice] = useState(1);
 
   const handleOpenDetails = async () => {
+    if (!event.appointment_id) {
+      toast.error("You cannot open a machine", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+      return;
+    }
+
     setOpenCalendarEventModal(true);
     setLoading(true);
 
@@ -55,12 +67,57 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
       );
       setNumberOfFractions(appointmentDetailsRequest.data.demand.fractions);
       setIsInPatient(appointmentDetailsRequest.data.demand.is_inpatient);
+      setDemandId(appointmentDetailsRequest.data.demand.id);
+      setRoomId(
+        appointmentDetailsRequest.data.room
+          ? appointmentDetailsRequest.data.room.id
+          : null
+      );
     }
 
     setLoading(false);
   };
 
-  const handleSave = async () => {};
+  const handleSave = async () => {
+    if (
+      newStartingTime === "00:00" ||
+      newDate === "2023-11-25" ||
+      newEndDate === "2023-11-25" ||
+      newEndTime === "00:00"
+    ) {
+      toast.error("Please select a valid date and time!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+
+      return;
+    }
+
+    setLoading(true);
+
+    const rescheduleAppointmentRequest = await patchAppointmentApi(
+      event.appointment_id,
+      {
+        start: `${newDate}T${newStartingTime}:20.895Z`,
+        end: `${newEndDate}T${newEndTime}:20.895Z`,
+        resource_id: selectedDevice,
+        demand_id: demandId,
+        room_id: roomId,
+      }
+    );
+
+    if (rescheduleAppointmentRequest.status === 200) {
+      toast.success("Appointment rescheduled successfully!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+    } else {
+      toast.error("Error rescheduling appointment!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+    }
+
+    setLoading(false);
+    setOpenCalendarEventModal(false);
+  };
 
   return (
     <>
@@ -95,7 +152,7 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full h-[30rem] max-w-2xl transform overflow-hidden rounded-2xl bg-lightBlue p-6 text-left shadow-xl transition-all">
+                <Dialog.Panel className="w-full h-[35rem] max-w-2xl transform overflow-hidden rounded-2xl bg-lightBlue p-6 text-left shadow-xl transition-all">
                   <img
                     src={CancelIcon}
                     alt="cancel icon"
@@ -127,6 +184,8 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                           </span>{" "}
                           {event.start_hour}:{event.endingMinute}
                         </p>
+
+                        {event.color}
                       </div>
                       <div className="border-2 border-black rounded-lg p-3 pt-1">
                         <h2 className="text-base text-center text-darkerGray mb-3">
@@ -174,7 +233,7 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                     <div className="flex items-center justify-around w-full mt-5">
                       <div className="flex items-center gap-1">
                         <p className="text-black text-sm">
-                          <span className="font-bold">New date:</span>
+                          <span className="font-bold">New start date:</span>
                         </p>
                         <input
                           type="date"
@@ -185,7 +244,7 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                       </div>
                       <div className="flex items-center gap-1">
                         <p className="text-black text-sm">
-                          <span className="font-bold">New starting time:</span>
+                          <span className="font-bold">New start time:</span>
                         </p>
                         <input
                           type="time"
@@ -200,11 +259,11 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                           className="appearance-none py-1 bg-lighterGray shadow-[1px_1px_3px_3px_rgba(103,116,152,0.3)] rounded-full px-8 text-light-gray focus:outline-none cursor-pointer"
                           value={selectedDevice}
                           onChange={(e) => {
-                            setSelectedDevice(e.target.value);
+                            setSelectedDevice(parseInt(e.target.value));
                           }}
                         >
                           {allDevices.map((item, index) => (
-                            <option value={item.name} key={index}>
+                            <option value={index + 1} key={index}>
                               {item.name}
                             </option>
                           ))}
@@ -221,6 +280,30 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                             />
                           </svg>
                         </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-start w-full mt-5 ml-3 gap-3">
+                      <div className="flex items-center gap-1">
+                        <p className="text-black text-sm">
+                          <span className="font-bold">New end date:</span>
+                        </p>
+                        <input
+                          type="date"
+                          className="border-2 border-black rounded-lg p-1"
+                          value={newEndDate}
+                          onChange={(e) => setEndNewDate(e.target.value)}
+                        />
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <p className="text-black text-sm">
+                          <span className="font-bold">New end time:</span>
+                        </p>
+                        <input
+                          type="time"
+                          className="border-2 border-black rounded-lg p-1"
+                          value={newEndTime}
+                          onChange={(e) => setNewEndTime(e.target.value)}
+                        />
                       </div>
                     </div>
 
@@ -245,7 +328,7 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
         style={{
           width: `${((event.endingMinute - event.startingMinute) / 60) * 100}%`,
           left: `${(event.startingMinute / 60) * 100}%`,
-          backgroundColor: event.fillOutColor ?? "#028090",
+          backgroundColor: event.color ?? "#028090",
           opacity:
             parseInt(selectedEventIdRedux.split("-")[0]) ===
               event.appointment_id ||
