@@ -1,4 +1,4 @@
-# JunctionX Budapest 2023 - Frontend
+# JunctionX Budapest 2023 Varion Challenge - Frontend
 
 ![alt text](https://i.ibb.co/xHPCFnK/mainPage.png)
 
