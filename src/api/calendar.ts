@@ -68,3 +68,12 @@ export const addNewMaintenanceApi = async (data: any) => {
     return error;
   }
 };
+
+export const deleteAppointmentApi = async (appointment_id: number) => {
+  try {
+    const response = await axios.delete(`/v1/appointments/${appointment_id}`);
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};

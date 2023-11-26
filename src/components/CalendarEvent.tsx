@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from "react";
 import CancelIcon from "../assets/cancelIcon.svg";
 import { Dialog, Transition } from "@headlessui/react";
-import { getAppointmentApi, patchAppointmentApi } from "../api";
+import {
+  deleteAppointmentApi,
+  getAppointmentApi,
+  patchAppointmentApi,
+} from "../api";
 import { allDevices } from "../config/calendarDataConverter";
 import { useAppSelector } from "../redux/hooks";
 import { toast } from "react-toastify";
@@ -119,6 +123,32 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
     setOpenCalendarEventModal(false);
   };
 
+  const handleDelete = async () => {
+    setLoading(true);
+
+    const rescheduleAppointmentRequest = await deleteAppointmentApi(
+      event.appointment_id
+    );
+
+    if (rescheduleAppointmentRequest.status === 200) {
+      toast.success("Appointment successfully deleted!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+
+      setLoading(false);
+      setOpenCalendarEventModal(false);
+
+      window.location.reload();
+    } else {
+      toast.error("Error deleting appointment!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+    }
+
+    setLoading(false);
+    setOpenCalendarEventModal(false);
+  };
+
   return (
     <>
       <Transition appear show={openCalendarEventModal} as={Fragment}>
@@ -161,7 +191,7 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                   />
                   <div className="flex items-center justify-center w-full flex-col">
                     <h2 className="text-center text-3xl text-black font-bold mb-4">
-                      Reschedule appointment
+                      Edit appointment
                     </h2>
                     <div className="flex items-start justify-around w-full mt-5 gap-3">
                       <div className="border-2 border-black rounded-lg p-3 pt-1">
@@ -305,12 +335,18 @@ export default function CalendarEvent({ event, selectedDeviceParent }: Props) {
                       </div>
                     </div>
 
-                    <div className="flex justify-center items-center mt-5 w-full">
+                    <div className="flex justify-center items-center gap-4 mt-5 w-full">
+                      <button
+                        className="w-1/2 h-10 mt-6 p-2 rounded-md bg-statusUrgent font-bold text-white focus:outline-none placeholder-white hover:text-statusUrgent hover:bg-white hover:border-2 border-statusUrgent"
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </button>
                       <button
                         className="w-1/2 h-10 mt-6 p-2 rounded-md bg-primary font-bold text-white focus:outline-none placeholder-white hover:text-primary hover:bg-white hover:border-2 border-primary"
                         onClick={handleSave}
                       >
-                        Save
+                        Edit
                       </button>
                     </div>
                   </div>
